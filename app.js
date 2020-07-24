@@ -1,37 +1,19 @@
-var express = require("express");
-var app = express();
-var bodyParser = require("body-parser");
-var mongoose = require("mongoose");
+var express = require("express"),
+  app = express(),
+  bodyParser = require("body-parser"),
+  mongoose = require("mongoose"),
+
+  Campground = require("./models/campground"),
+
+  seedDB = require("./seeds");
 
 mongoose.set('useUnifiedTopology', true);
-mongoose.connect("mongodb://localhost:27017/yelp_camp", { useNewUrlParser: true });
+mongoose.connect("mongodb://localhost:27017/yelp_camp_v3", { useNewUrlParser: true });
 
-app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
+app.set("view engine", "ejs");
 
-//SCHEMA SETUP
-var campgroundSchema = new mongoose.Schema({
-  name: String,
-  image: String,
-  description: String,
-});
-var Campground = mongoose.model("Campground", campgroundSchema);
-
-// Campground.create(
-//   {
-//     name: "khajjiar",
-//     image: "https://cdn.s3waas.gov.in/s3577bcc914f9e55d5e4e4f82f9f00e7d4/uploads/bfi_thumb/2018040364-olw8nged76z1v26p21o05b496dbiz7mbqck8frguq2.jpg",
-//     description: "Snowy, hilly, with a small lake.Paragliding available!",
-//   }, function (err, campground) {
-//     if (err) {
-//       console.log(err);
-//     } else {
-//       console.log("NEW CAMPGROUND CREATED: ");
-//       console.log(campground);
-//     }
-//   });
-
-
+seedDB();
 
 app.get("/", function (req, res) {
   res.render("landing");
@@ -75,7 +57,7 @@ app.get("/campgrounds/new", function (req, res) {
 //SHOW ROUTE - shows more info about one campground
 app.get("/campgrounds/:id", function (req, res) {
   //find campground with provided id
-  Campground.findById(req.params.id, function (err, foundCampground) {
+  Campground.findById(req.params.id).populate("comments").exec(function (err, foundCampground) {
     if (err) {
       console.log(err);
     } else {
