@@ -8,10 +8,11 @@ var express = require("express"),
 var seedDB = require("./seeds");
 
 mongoose.set('useUnifiedTopology', true);
-mongoose.connect("mongodb://localhost:27017/yelp_camp_v4", { useNewUrlParser: true });
+mongoose.connect("mongodb://localhost:27017/yelp_camp_v5", { useNewUrlParser: true });
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
+app.use(express.static(__dirname + "/public"));
 
 seedDB();
 
@@ -66,11 +67,11 @@ app.get("/campgrounds/:id", function (req, res) {
       //render show template with that campground
       res.render("campgrounds/show", { campground: foundCampground });
     }
-
   });
 });
 // *************************
 // COMMENTS ROUTES
+// *************************
 
 // NEW ROUTE
 app.get("/campgrounds/:id/comments/new", function (req, res) {
@@ -91,6 +92,9 @@ app.post("/campgrounds/:id/comments", function (req, res) {
       console.log(err);
       res.redirect("/campgrounds");
     } else {
+      // create new commment
+      //connect new comment to campground
+      // redirect to camp ground show page
       Comment.create(req.body.comment, function (err, comment) {
         if (err) {
           console.log(err);
@@ -102,9 +106,7 @@ app.post("/campgrounds/:id/comments", function (req, res) {
       })
     }
   })
-  // create new commment
-  //connect new comment to campground
-  // redirect to camp ground show page
+
 })
 
 var port = process.env.PORT || 3001;
