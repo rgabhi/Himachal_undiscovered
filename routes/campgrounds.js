@@ -6,14 +6,14 @@ var middleware = require("../middleware");
 
 // INDEX ROUTE - show all campmgrounds
 router.get("/", function (req, res) {
-    //GET ALL campgrounds from DB
+    // Get all campgrounds from DB
     Campground.find({}, function (err, allCampgrounds) {
         if (err) {
             console.log(err);
         } else {
-            res.render("campgrounds/index", { campgrounds: allCampgrounds, currentUser: req.user });
+            res.render("campgrounds/index", { campgrounds: allCampgrounds, page: 'campgrounds' });
         }
-    })
+    });
 });
 
 // CREATE ROUTE - add new camp to the database
@@ -21,13 +21,14 @@ router.post("/", middleware.isLoggedIn, function (req, res) {
     //GET DATA FROM THE FORM AND ADD TO CAMPGROUNDS 
     // REDIRECT BACK TO CAMPGROUNDS PAGE
     var name = req.body.name;
+    var price = req.body.price;
     var image = req.body.image;
     var description = req.body.description;
     var author = {
         id: req.user._id,
         username: req.user.username
     }
-    var newCampground = { name: name, image: image, description: description, author: author };
+    var newCampground = { name: name, price: price, image: image, description: description, author: author };
     //CREATE A NEW CAMPGROUND AND SAVE TO DATABASE
     Campground.create(newCampground, function (err, newlyCreated) {
         if (err) {
