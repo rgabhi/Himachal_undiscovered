@@ -1,4 +1,5 @@
 var mongoose = require("mongoose");
+
 //SCHEMA SETUP
 var campgroundSchema = new mongoose.Schema({
     name: String,
