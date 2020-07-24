@@ -16,13 +16,13 @@ var commentRoutes = require("./routes/comments"),
   authRoutes = require("./routes/index");
 
 mongoose.set('useUnifiedTopology', true);
-mongoose.connect("mongodb://localhost:27017/yelp_camp_v7", { useNewUrlParser: true });
+mongoose.connect("mongodb://localhost:27017/yelp_camp_v8", { useNewUrlParser: true });
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
 
-seedDB();
+//seedDB(); //seed the databse
 
 // PASSPORT CONFIGURATION
 app.use(require("express-session")({
