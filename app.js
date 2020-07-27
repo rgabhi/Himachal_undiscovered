@@ -19,7 +19,10 @@ var commentRoutes = require("./routes/comments"),
 
 mongoose.set('useFindAndModify', false);
 mongoose.set('useUnifiedTopology', true);
-mongoose.connect("mongodb+srv://rgabhi:abhi1998@cluster0-f3ajx.mongodb.net/yelp_camp?retryWrites=true&w=majority", { useNewUrlParser: true });
+
+// console.log(process.env.DATABASEURL);
+mongoose.connect(process.env.DATABASEURL, { useNewUrlParser: true });
+
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
