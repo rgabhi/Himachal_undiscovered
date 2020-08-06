@@ -1,3 +1,4 @@
+require('dotenv').config();
 var express = require("express"),
   app = express(),
   bodyParser = require("body-parser"),
@@ -9,6 +10,8 @@ var express = require("express"),
   Campground = require("./models/campground"),
   Comment = require("./models/comment"),
   User = require("./models/user");
+
+
 
 var seedDB = require("./seeds");
 

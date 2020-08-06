@@ -4,7 +4,7 @@ var userSchema = new mongoose.Schema({
     username: String,
     password: String,
     avatar: {
-        type: String, default: "https://images.unsplash.com/photo-1595744197503-47a9f334692f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80"
+        type: String, default: "https://image.shutterstock.com/image-vector/user-login-authenticate-icon-human-260nw-1365533969.jpg"
     },
     firstName: String,
     lastName: String,
