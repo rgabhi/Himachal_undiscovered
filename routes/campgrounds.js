@@ -6,14 +6,31 @@ var middleware = require("../middleware");
 
 // INDEX ROUTE - show all campmgrounds
 router.get("/", function (req, res) {
-    // Get all campgrounds from DB
-    Campground.find({}, function (err, allCampgrounds) {
-        if (err) {
-            console.log(err);
-        } else {
-            res.render("campgrounds/index", { campgrounds: allCampgrounds, page: 'campgrounds' });
-        }
-    });
+    if (req.query.search) {
+        // fuzzy search
+        const regex = new RegExp(escapeRegex(req.query.search), 'gi');
+        Campground.find({ $or: [{ name: regex }, { "author.username": regex }] }, function (err, allCampgrounds) {
+            if (err) {
+                console.log(err);
+            } else {
+                if (allCampgrounds.length < 1) {
+                    req.flash("error", " No Campgrounds matched your search.Try again!");
+                    return res.redirect("back");
+                }
+                res.render("campgrounds/index", { campgrounds: allCampgrounds, page: 'campgrounds' });
+            }
+        });
+    } else {
+        // Get all campgrounds from DB
+        Campground.find({}, function (err, allCampgrounds) {
+            if (err) {
+                console.log(err);
+            } else {
+                res.render("campgrounds/index", { campgrounds: allCampgrounds, page: 'campgrounds' });
+            }
+        });
+    }
+
 });
 
 // CREATE ROUTE - add new camp to the database
@@ -90,5 +107,11 @@ router.delete("/:id", middleware.checkCampgroundOwnership, function (req, res) {
         }
     });
 });
+
+
+function escapeRegex(text) {
+    return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+};
+
 
 module.exports = router;
