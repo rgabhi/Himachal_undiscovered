@@ -80,3 +80,17 @@ body {
 .no-cssanimations .slideshow li {
 	opacity: 1;
 }
+
+
+
+/* footer */
+.footer {
+  font-weight: bolder;
+  font-size: larger;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  /* Set the fixed height of the footer here */
+  height: 60px;
+  background: transparent;
+}
