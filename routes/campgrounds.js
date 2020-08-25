@@ -37,7 +37,7 @@ router.get("/", function (req, res) {
                 console.log(err);
             } else {
                 if (allCampgrounds.length < 1) {
-                    req.flash("error", " No Campgrounds matched your search.Try again!");
+                    req.flash("error", " No location matched your search.Try again!");
                     return res.redirect("back");
                 }
                 res.render("campgrounds/index", { campgrounds: allCampgrounds, page: 'campgrounds' });

@@ -1,3 +1,3 @@
-# YelpCamp_my_version
+# Himachal Undiscovered
 
-IMPLEMENTATION OF YELP-CAMP PROJECT FROM THE WEB-DEVELOPER'S BOOTCAMP(UDEMY)
+
