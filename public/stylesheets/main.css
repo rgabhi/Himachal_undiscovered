@@ -4,7 +4,11 @@ nav{
   /* font-size: larger; */
 }
 
-
+header{
+  background-image: url("https://cdn1.goibibo.com/india-himachal-pradesh-147709567681o.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
