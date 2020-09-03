@@ -12,26 +12,26 @@
           Sort By
         </a>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-          <form class="sortForm" action="/campgrounds" method="GET">
+          <form class="sortForm" action="/touristplaces" method="GET">
             <input type="text" name="sortby" value="rateAvg" class="d-none">
             <button type="submit" class="dropdown-item">Highest Rated</button>
           </form>
-          <form class="sortForm" action="/campgrounds" method="GET">
+          <form class="sortForm" action="/touristplaces" method="GET">
             <input type="text" name="sortby" value="rateCount" class="d-none">
             <button type="submit" class="dropdown-item">Most Reviewed</button>
           </form>
-          <form class="sortForm" action="/campgrounds" method="GET">
+          <form class="sortForm" action="/touristplaces" method="GET">
             <input type="text" name="sortby" value="priceLow" class="d-none">
             <button type="submit" class="dropdown-item">Lowest Price</button>
           </form>
-          <form class="sortForm" action="/campgrounds" method="GET">
+          <form class="sortForm" action="/touristplaces" method="GET">
             <input type="text" name="sortby" value="priceHigh" class="d-none">
             <button type="submit" class="dropdown-item">Highest Price</button>
           </form>
-          <a href="/campgrounds" href class="dropdown-item">Reset</a>
+          <a href="/touristplaces" href class="dropdown-item">Reset</a>
         </div>
       </div>
-      <form action="/campgrounds" method="GET" class="form-inline float-md-right">
+      <form action="/touristplaces" method="GET" class="form-inline float-md-right">
         <div class="input-group mb-3">
           <input type="text" name="search" class="form-control" placeholder="Search places" aria-label="Search places"
             aria-describedby="button-addon2">
@@ -60,15 +60,15 @@
   </div>
 
   <div class="row text-center">
-    <% campgrounds.forEach(function(campground){ %>
+    <% touristplaces.forEach(function(touristplace){ %>
     <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
       <div class="card shadow rounded">
-        <img src="<%= campground.image %>" class="card-img-top" alt="<%= campground.name %>">
+        <img src="<%= touristplace.image %>" class="card-img-top" alt="<%= touristplace.name %>">
         <div class="card-body">
-          <h5 class="card-title"><%= campground.name %></h5>
+          <h5 class="card-title"><%= touristplace.name %></h5>
           <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
             content.</p> -->
-          <a href="/campgrounds/<%= campground._id %>" class="btn btn-outline-primary">
+          <a href="/touristplaces/<%= touristplace._id %>" class="btn btn-outline-primary">
             More Info
             <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-arrow-right-square-fill"
               fill="currentColor" xmlns="http://www.w3.org/2000/svg">

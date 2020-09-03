@@ -1,5 +1,5 @@
 var mongoose = require("mongoose");
-var Campground = require("./models/campground");
+var Touristplace = require("./models/touristplace");
 var Comment = require("./models/comment");
 
 var data = [
@@ -44,24 +44,24 @@ var data = [
 // ]
 
 function seedDB() {
-    //Remove all campgrounds
-    Campground.deleteMany({}, function (err) {
+    //Remove all touristplaces
+    Touristplace.deleteMany({}, function (err) {
         if (err) {
             console.log(err);
         }
-        console.log("removed campgrounds!");
+        console.log("removed touristplaces!");
         Comment.deleteMany({}, function (err) {
             if (err) {
                 console.log(err);
             }
             console.log("removed comments!");
-            //add a few campgrounds
+            //add a few touristplaces
             // data.forEach(function (seed) {
-            //     Campground.create(seed, function (err, campground) {
+            //     Touristplace.create(seed, function (err, touristplace) {
             //         if (err) {
             //             console.log(err)
             //         } else {
-            //             console.log("added a campground");
+            //             console.log("added a touristplace");
             //             //create a comment
             //             Comment.create(
             //                 {
@@ -71,8 +71,8 @@ function seedDB() {
             //                     if (err) {
             //                         console.log(err);
             //                     } else {
-            //                         campground.comments.push(comment);
-            //                         campground.save();
+            //                         touristplace.comments.push(comment);
+            //                         touristplace.save();
             //                         console.log("Created new comment");
             //                     }
             //                 });

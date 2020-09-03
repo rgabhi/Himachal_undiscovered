@@ -52,7 +52,12 @@ body{
 .delete-form{
     display: inline;
 }
-
+/*---------------- FLASH_MESSAGE------------------ */
+/* #flash-message{
+  position: absolute;
+  left: 1%;
+  right: 1%;
+} */
 
 /* --------------form- sign-in------------- */
 .form-signin {

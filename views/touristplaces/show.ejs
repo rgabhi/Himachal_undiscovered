@@ -11,20 +11,21 @@
         </div>
         <div class="col-md-9">
             <div class="card mb-3">
-                <img src="<%= campground.image %>" class="card-img-top" alt="<%= campground.name %>">
+                <img src="<%= touristplace.image %>" class="card-img-top" alt="<%= touristplace.name %>">
                 <div class="card-body">
-                    <h6 class="float-right"> Rs. <%= campground.price %>/day</h6>
-                    <h4 class="card-title"><%= campground.name %></h4>
+                    <h6 class="float-right"> Rs. <%= touristplace.price %>/day</h6>
+                    <h4 class="card-title"><%= touristplace.name %></h4>
                     <p>
                         <em>Submitted by: <a
-                                href="/users/<%= campground.author.id %>"><%= campground.author.username %></a>,
-                            <%= moment(campground.createdAt).fromNow() %></em>
+                                href="/users/<%= touristplace.author.id %>"><%= touristplace.author.username %></a>,
+                            <%= moment(touristplace.createdAt).fromNow() %></em>
                     </p>
                     <hr>
-                    <p class="card-text"><%= campground.description %></p>
-                    <% if( (currentUser && campground.author.id.equals(currentUser._id)) || (currentUser && currentUser.isAdmin)){ %>
-                    <a class="btn btn-xs btn-warning" href="/campgrounds/<%= campground._id %>/edit">Edit</a>
-                    <form class="delete-form" action="/campgrounds/<%= campground._id %>?_method=DELETE" method="POST">
+                    <p class="card-text"><%= touristplace.description %></p>
+                    <% if( (currentUser && touristplace.author.id.equals(currentUser._id)) || (currentUser && currentUser.isAdmin)){ %>
+                    <a class="btn btn-xs btn-warning" href="/touristplaces/<%= touristplace._id %>/edit">Edit</a>
+                    <form class="delete-form" action="/touristplaces/<%= touristplace._id %>?_method=DELETE"
+                        method="POST">
                         <button class="btn btn-xs btn-danger">Delete</button>
                     </form>
                     <% } %>
@@ -34,12 +35,12 @@
             <div class="card">
                 <div class="card-body">
                     <div class="text-right">
-                        <a class="btn btn-success" href="/campgrounds/<%= campground._id %>/comments/new">Add new
+                        <a class="btn btn-success" href="/touristplaces/<%= touristplace._id %>/comments/new">Add new
                             comment</a>
                     </div>
                     <hr>
                     <div class="row">
-                        <% campground.comments.forEach(function (comment) { %>
+                        <% touristplace.comments.forEach(function (comment) { %>
                         <div class="col-md-12 mb-2">
                             <div class="card">
                                 <div class="card-body">
@@ -52,9 +53,9 @@
                                         <% if( (currentUser && comment.author.id.equals(currentUser._id)) ||(currentUser && currentUser.isAdmin)){ %>
                                         <div class="float-right">
                                             <a class="btn btn-sm btn-warning"
-                                                href="/campgrounds/<%= campground._id %>/comments/<%= comment._id %>/edit">Edit</a>
+                                                href="/touristplaces/<%= touristplace._id %>/comments/<%= comment._id %>/edit">Edit</a>
                                             <form class="delete-form"
-                                                action="/campgrounds/<%= campground._id %>/comments/<%= comment._id %>?_method=DELETE"
+                                                action="/touristplaces/<%= touristplace._id %>/comments/<%= comment._id %>?_method=DELETE"
                                                 method="POST">
                                                 <button class="btn btn-sm btn-danger">Delete</button>
                                             </form>

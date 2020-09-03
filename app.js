@@ -7,7 +7,7 @@ var express = require("express"),
   passport = require("passport"),
   LocalStrategy = require("passport-local"),
   methodOverride = require("method-override"),
-  Campground = require("./models/campground"),
+  Touristplace = require("./models/touristplace"),
   Comment = require("./models/comment"),
   User = require("./models/user");
 
@@ -17,7 +17,7 @@ var seedDB = require("./seeds");
 
 //requiring routes
 var commentRoutes = require("./routes/comments"),
-  campgroundRoutes = require("./routes/campgrounds"),
+  touristplaceRoutes = require("./routes/touristplaces"),
   authRoutes = require("./routes/index");
 
 mongoose.set('useFindAndModify', false);
@@ -56,12 +56,12 @@ app.use(function (req, res, next) {
 });
 
 app.use("/", authRoutes);
-app.use("/campgrounds", campgroundRoutes);
-app.use("/campgrounds/:id/comments", commentRoutes);
+app.use("/touristplaces", touristplaceRoutes);
+app.use("/touristplaces/:id/comments", commentRoutes);
 
 
 
 var port = process.env.PORT || 3001;
 app.listen(port, process.env.IP, function () {
-  console.log(`The yelpCamp server started at port: ${port}`);
+  console.log(`app live on port: ${port}`);
 });

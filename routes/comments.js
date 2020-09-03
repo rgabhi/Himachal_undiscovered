@@ -1,34 +1,34 @@
 var express = require("express");
 var router = express.Router({ mergeParams: true });
-var Campground = require("../models/campground");
+var Touristplace = require("../models/touristplace");
 var Comment = require("../models/comment");
-const { route } = require("./campgrounds");
+const { route } = require("./touristplaces");
 var middleware = require("../middleware");
 
 // NEW ROUTE
 router.get("/new", middleware.isLoggedIn, function (req, res) {
-    //find campground by id
-    Campground.findById(req.params.id, function (err, campground) {
+    //find touristplace by id
+    Touristplace.findById(req.params.id, function (err, touristplace) {
         if (err) {
             console.log(err)
 
         } else {
-            res.render("comments/new", { campground: campground });
+            res.render("comments/new", { touristplace: touristplace });
         }
     });
 });
 
 // CREATE ROUTE
 router.post("/", middleware.isLoggedIn, function (req, res) {
-    //lookup campground using id
-    Campground.findById(req.params.id, function (err, campground) {
+    //lookup touristplace using id
+    Touristplace.findById(req.params.id, function (err, touristplace) {
         if (err) {
             console.log(err);
-            res.redirect("/campgrounds");
+            res.redirect("/touristplaces");
         } else {
             // create new commment
-            //connect new comment to campground
-            // redirect to camp ground show page
+            //connect new comment to touristplace
+            // redirect to touristplace show page
             Comment.create(req.body.comment, function (err, comment) {
                 if (err) {
                     req.flash("error", "Something went wrong");
@@ -39,10 +39,10 @@ router.post("/", middleware.isLoggedIn, function (req, res) {
                     comment.author.username = req.user.username;
                     comment.save();
                     //save comment
-                    campground.comments.push(comment);
-                    campground.save();
+                    touristplace.comments.push(comment);
+                    touristplace.save();
                     req.flash("success", "Successfully added comment");
-                    res.redirect("/campgrounds/" + campground._id);
+                    res.redirect("/touristplaces/" + touristplace._id);
                 }
             });
         }
@@ -50,16 +50,16 @@ router.post("/", middleware.isLoggedIn, function (req, res) {
 });
 // COMMENTS EDIT ROUTE
 router.get("/:comment_id/edit", middleware.checkCommentOwnership, function (req, res) {
-    Campground.findById(req.params.id, function (err, foundCampground) {
-        if (err || !foundCampground) {
-            req.flash("error", "Campground not found");
+    Touristplace.findById(req.params.id, function (err, foundTouristplace) {
+        if (err || !foundTouristplace) {
+            req.flash("error", "Touristplace not found");
             return res.redirect("back");
         }
         Comment.findById(req.params.comment_id, function (err, foundComment) {
             if (err) {
                 res.redirect("back");
             } else {
-                res.render("comments/edit", { campground_id: req.params.id, comment: foundComment });
+                res.render("comments/edit", { touristplace_id: req.params.id, comment: foundComment });
             }
         });
     });
@@ -71,7 +71,7 @@ router.put("/:comment_id", middleware.checkCommentOwnership, function (req, res)
         if (err) {
             res.redirect("back");
         } else {
-            res.redirect("/campgrounds/" + req.params.id);
+            res.redirect("/touristplaces/" + req.params.id);
         }
     });
 });
@@ -82,7 +82,7 @@ router.delete("/:comment_id", middleware.checkCommentOwnership, function (req, r
             res.redirect("back");
         } else {
             req.flash("successs", "Comment deleted");
-            res.redirect("/campgrounds/" + req.params.id);
+            res.redirect("/touristplaces/" + req.params.id);
         }
     });
 });
