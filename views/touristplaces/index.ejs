@@ -1,9 +1,15 @@
 <%- include ("../partials/header") %>
 
-<header class="jumbotron jumbotron-fluid">
+<header class="jumbotron text-light jumbotron-fluid">
   <div class="container">
-    <h1 class="display-4 text-center">Himachal Undiscovered!</h1>
-    <p class="lead text-center">Explore the most beautiful locations ...</p>
+    <div class="jumbotron-text mt-5 text-center">
+      <% if(noMatch !== null) { %>
+      <h2 class="jumbotronText">No results for <span class="font-italic"><%= noMatch %></span>, try again. </h2>
+      <% } else { %>
+      <h1 class="display-4 text-center">Himachal Undiscovered!</h1>
+      <p class="lead text-center">Explore the untouched beauty of Himachal...</p>
+      <% } %>
+    </div>
     <hr class="my-4">
     <div class="d-block">
       <div class="dropdown d-md-inline float-md-left mb-4" id="sortCollapse">
@@ -62,12 +68,36 @@
   <div class="row text-center">
     <% touristplaces.forEach(function(touristplace){ %>
     <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
-      <div class="card shadow rounded">
+      <div class="card customCard shadow rounded">
         <img src="<%= touristplace.image %>" class="card-img-top" alt="<%= touristplace.name %>">
         <div class="card-body">
-          <h5 class="card-title"><%= touristplace.name %></h5>
-          <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-            content.</p> -->
+          <h5 class="card-title text-capitalize"><%= touristplace.name %>
+            <% if (touristplace.price <= 50) { %>
+            <small class="float-right text-muted">&#8377</small>
+            <% } else if (touristplace.price < 100) { %>
+            <small class="float-right text-muted">&#8377&#8377</small>
+            <% } else { %>
+            <small class="float-right text-muted">&#8377&#8377&#8377</small>
+            <% } %>
+          </h5>
+          <h6 class="card-subtitle">
+            <% if(touristplace.comments.length === 0) { %>
+            <span class="text-muted">No Reviews</span>
+            <% } else { %>
+            <% var stars = ['<i class="far fa-star text-danger "></i>', '<i class="far fa-star text-danger "></i>', '<i class="far fa-star text-danger "></i>', '<i class="far fa-star text-danger "></i>', '<i class="far fa-star text-danger "></i>'] %>
+            <% for(var i = 0; i < Math.round(touristplace.rateAvg); i++) { %>
+            <% stars[i] = '<i class="fas fa-star text-danger "></i>' %>
+            <% } %>
+            <% for(var i = 0; i < stars.length; i++) { %>
+            <%- stars[i] %>
+            <% } %>
+            <% if (touristplace.comments.length === 1) { %>
+            <span class="text-muted"><%= touristplace.comments.length %> Review</span>
+            <% } else { %>
+            <span class="text-muted"><%= touristplace.comments.length %> Reviews</span>
+            <% } %>
+            <% } %>
+          </h6>
           <a href="/touristplaces/<%= touristplace._id %>" class="btn btn-outline-primary">
             More Info
             <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-arrow-right-square-fill"

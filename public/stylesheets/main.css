@@ -1,14 +1,26 @@
 /* -----------------NAVBAR-------------- */
+.navbar-brand :hover{
+  transform: scale(1.1, 1.1);
+}
 nav{
-  letter-spacing: 0.2em;
+  letter-spacing: 0.1em;
   /* font-size: larger; */
 }
 
-header{
-  background-image: url("https://cdn1.goibibo.com/india-himachal-pradesh-147709567681o.jpg");
-  background-repeat: no-repeat;
-  background-size: cover;
+.jumbotron{
+  background: linear-gradient(rgba(70, 70, 70, 0.35), rgba(70, 70, 70, 0.35)),
+    url("https://cdn1.goibibo.com/india-himachal-pradesh-147709567681o.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    min-height: 400px;
+    margin-bottom: 0px;
 }
+.jumbotronText {
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
+}
+
+
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
@@ -98,3 +110,9 @@ body{
   #SignupAvatar{
     margin-bottom: 10px;
   }
+/* -------------------- */
+.customCard:hover {
+  transform: scale(0.9, 0.9);
+  box-shadow: 5px 5px 30px 15px rgba(0,0,0,0.25),
+    -5px -5px 30px 15px rgba(0,0,0,0.22);
+}

@@ -1,14 +1,15 @@
 var mongoose = require("mongoose");
 var passportLocalMongoose = require("passport-local-mongoose");
+
 var userSchema = new mongoose.Schema({
     username: String,
     password: String,
-    avatar: {
-        type: String, default: "https://image.shutterstock.com/image-vector/user-login-authenticate-icon-human-260nw-1365533969.jpg"
-    },
-    firstName: String,
-    lastName: String,
     email: String,
+    phone: String,
+    fullName: String,
+    image: String,
+    imageId: String,
+    joined: { type: Date, default: Date.now },
     isAdmin: { type: Boolean, default: false },
 });
 

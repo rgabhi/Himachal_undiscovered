@@ -13,7 +13,7 @@ var express = require("express"),
 
 
 
-var seedDB = require("./seeds");
+// var seedDB = require("./seeds");
 
 //requiring routes
 var commentRoutes = require("./routes/comments"),
@@ -24,7 +24,10 @@ mongoose.set('useFindAndModify', false);
 mongoose.set('useUnifiedTopology', true);
 
 // console.log(process.env.DATABASEURL);
-mongoose.connect(process.env.DATABASEURL, { useNewUrlParser: true });
+mongoose.connect(
+  process.env.DATABASEURL,
+  { useNewUrlParser: true }
+);
 
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -35,12 +38,15 @@ app.use(flash());
 //seedDB(); //seed the databse
 
 app.locals.moment = require('moment');
+
 // PASSPORT CONFIGURATION
-app.use(require("express-session")({
-  secret: "Abhi is a coder",
-  resave: false,
-  saveUninitialized: false
-}));
+app.use(
+  require("express-session")({
+    secret: "Abhi is a coder",
+    resave: false,
+    saveUninitialized: false
+  })
+);
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -59,7 +65,9 @@ app.use("/", authRoutes);
 app.use("/touristplaces", touristplaceRoutes);
 app.use("/touristplaces/:id/comments", commentRoutes);
 
-
+app.get("*", function (req, res) {
+  res.render("error");
+});
 
 var port = process.env.PORT || 3001;
 app.listen(port, process.env.IP, function () {

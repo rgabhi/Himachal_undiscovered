@@ -1,28 +1,87 @@
 <%- include("../partials/header") %>
 
-<div class="container">
+<div class="container mt-4">
     <div class="row justify-content-center">
         <div class="col-md-12 text-center">
             <h1>Add a New Place</h1>
         </div>
-
         <div class="col-xs-12 col-md-6 col-lg-4">
+            <p>
+                <small class="text-muted">Fields marked * are required.</small>
+            </p>
             <form action="/touristplaces" method="POST" enctype="multipart/form-data">
                 <div class="form-group">
-                    <input class="form-control" type="text" name="touristplace[name]" placeholder="name">
+                    <label for="">Name*</label>
+                    <input class="form-control" type="text" name="touristplace[name]" placeholder="name" required>
                 </div>
                 <div class="form-group">
-                    <label for="image">Image</label>
-                    <input type="file" id="image" name="image" accept="image/*" required>
+                    <label for="">Price/Night*</label>
+                    <input type="number" class="form-control" name="touristplace[price]" placeholder="Price/Night"
+                        min="0.01" step="0.01" required>
+                    <div class="invalid-feedback">
+                        Please provide a price.
+                    </div>
                 </div>
                 <div class="form-group">
-                    <input class="form-control" type="text" name="touristplace[description]" placeholder="description">
+                    <div class="input-group mb-3">
+                        <div class="custom-file">
+                            <input type="file" name="image" accept="image/*" class="custom-file-input" id="image"
+                                aria-describedby="inputGroupFileAddon01" required>
+                            <div class="invalid-feedback">
+                                Please upload an image of your touristplace.
+                            </div>
+                            <label class="custom-file-label" for="inputGroupFile01">Image*</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="exampleFormControlTextarea1">Description*</label>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" name="touristplace[description]"
+                        rows="3" required></textarea>
+                    <div class="invalid-feedback">
+                        Please provide a description of your touristplace.
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="location">Location*</label>
+                    <input type="text" class="form-control" name="touristplace[location]"
+                        placeholder="Yosemite National Park, CA" id="location" required>
+                    <div class="invalid-feedback">
+                        Please provide a valid location
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="">Phone Number*</label>
+                    <input type="text" class="form-control" name="touristplace[phone]" placeholder="123-456-7891"
+                        required>
+                    <div class="invalid-feedback">
+                        Please provide a phone number.
+                    </div>
+                </div>
+                <label for="">Booking Window*</label>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <input type="text" class="form-control" name="touristplace[start]" placeholder="Starting Month"
+                            required>
+                        <div class="invalid-feedback">
+                            Please provide a booking window.
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <input type="text" class="form-control" name="touristplace[end]" placeholder="Ending Month"
+                            required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="">Amenities separated by commas</label>
+                    <input type="text" class="form-control" name="touristplace[tags]"
+                        placeholder="Example: boating, fishing, wifi">
                 </div>
                 <div class="form-group">
                     <button class="btn btn-lg btn-primary btn-block">Submit!</button>
                 </div>
             </form>
-            <a href="/touristplaces">Go Back</a>
+            <a class="btn btn-link" href="/touristplaces">Go Back</a>
         </div>
     </div>
 </div>

@@ -18,7 +18,10 @@ var imageFilter = function (req, file, cb) {
     }
     cb(null, true);
 };
-var upload = multer({ storage: storage, fileFilter: imageFilter });
+var upload = multer({
+    storage: storage,
+    fileFilter: imageFilter
+});
 
 var cloudinary = require('cloudinary');
 cloudinary.config({
@@ -29,6 +32,7 @@ cloudinary.config({
 
 // INDEX ROUTE - show all touristplaces
 router.get("/", function (req, res) {
+    var noMatch = null;
     if (req.query.search) {
         // fuzzy search
         const regex = new RegExp(escapeRegex(req.query.search), 'gi');
@@ -40,16 +44,91 @@ router.get("/", function (req, res) {
                     req.flash("error", " No location matched your search.Try again!");
                     return res.redirect("back");
                 }
-                res.render("touristplaces/index", { touristplaces: allTouristplaces, page: 'touristplaces' });
+                res.render("touristplaces/index", { touristplaces: allTouristplaces, page: 'touristplaces', noMatch: noMatch });
             }
         });
+    }
+    else if (req.query.sortby) {
+        if (req.query.sortby === "rateAvg") {
+            Touristplace.find({})
+                .sort({
+                    rateCount: -1,
+                    rateAvg: -1
+                })
+                .exec(function (err, allTouristplaces) {
+                    if (err) {
+                        console.log(err);
+                    } else {
+                        res.render("touristplaces/index", {
+                            touristplaces: allTouristplaces,
+                            currentUser: req.user,
+                            noMatch: noMatch
+                        });
+                    }
+                });
+        } else if (req.query.sortby === "rateCount") {
+            Touristplace.find({})
+                .sort({
+                    rateCount: -1
+                })
+                .exec(function (err, allTouristplaces) {
+                    if (err) {
+                        console.log(err);
+                    } else {
+                        res.render("touristplaces/index", {
+                            touristplaces: allTouristplaces,
+                            currentUser: req.user,
+                            noMatch: noMatch
+                        });
+                    }
+                });
+        } else if (req.query.sortby === "priceLow") {
+            Touristplace.find({})
+                .sort({
+                    price: 1,
+                    rateAvg: -1
+                })
+                .exec(function (err, allTouristplaces) {
+                    if (err) {
+                        console.log(err);
+                    } else {
+                        res.render("touristplaces/index", {
+                            touristplaces: allTouristplaces,
+                            currentUser: req.user,
+                            noMatch: noMatch
+                        });
+                    }
+                });
+        } else {
+            Touristplace.find({})
+                .sort({
+                    price: -1,
+                    rateAvg: -1
+                })
+                .exec(function (err, allTouristplaces) {
+                    if (err) {
+                        console.log(err);
+                    } else {
+                        res.render("touristplaces/index", {
+                            touristplaces: allTouristplaces,
+                            currentUser: req.user,
+                            noMatch: noMatch
+                        });
+                    }
+                });
+        }
     } else {
         // Get all touristplaces from DB
         Touristplace.find({}, function (err, allTouristplaces) {
             if (err) {
                 console.log(err);
             } else {
-                res.render("touristplaces/index", { touristplaces: allTouristplaces, page: 'touristplaces' });
+                res.render("touristplaces/index", {
+                    touristplaces: allTouristplaces,
+                    page: 'touristplaces',
+                    currentUser: req.user,
+                    noMatch: noMatch
+                });
             }
         });
     }
@@ -58,30 +137,50 @@ router.get("/", function (req, res) {
 
 // CREATE ROUTE - add new touristplace to the database
 router.post("/", middleware.isLoggedIn, upload.single('image'), function (req, res) {
-    cloudinary.v2.uploader.upload(req.file.path, function (err, result) {
-        if (err) {
-            res.flash("error", err.message);
-            return res.redirect("back");
-        }
-        // add cloudinary url for the image to the touristplace object under image property
-        req.body.touristplace.image = result.secure_url;
-        // add image's public_id to touristplace object
-        req.body.touristplace.imageId = result.public_id;
-        // add author to touristplace
-        req.body.touristplace.author = {
-            id: req.user._id,
-            username: req.user.username
-        }
-        //CREATE A NEW TOURISTPLACE AND SAVE TO DATABASE
-        Touristplace.create(req.body.touristplace, function (err, touristplace) {
+    cloudinary.v2.uploader.upload(
+        req.file.path,
+        {
+            width: 1500,
+            height: 1000,
+            crop: "scale"
+        },
+        function (err, result) {
             if (err) {
-                req.flash('error', err.message);
-                return res.redirect('back');
+                res.flash("error", err.message);
+                return res.redirect("back");
             }
-            // REDIRECT BACK TO TOURISTPLACE PAGE
-            res.redirect('/touristplaces/' + touristplace.id);
+            // add cloudinary url for the image to the touristplace object under image property
+            req.body.touristplace.image = result.secure_url;
+            // console.log(result.secure_url);
+            // add image's public_id to touristplace object
+            req.body.touristplace.imageId = result.public_id;
+            // console.log(result.public_id);
+            // booking 
+            req.body.touristplace.booking = {
+                start: req.body.touristplace.start,
+                end: req.body.touristplace.end
+            };
+            // tags
+            req.body.touristplace.tags = req.body.touristplace.tags.split(",");
+            // add author to touristplace
+            req.body.touristplace.author = {
+                id: req.user._id,
+                username: req.user.username
+            };
+            // GEOCODER look inti it
+            // req.body.touristplace.lat = data[0].latitude;
+            // req.body.touristplace.lng = data[0].longitude;
+            // req.body.touristplace.location = data[0].formattedAddress;
+            //CREATE A NEW TOURISTPLACE AND SAVE TO DATABASE
+            Touristplace.create(req.body.touristplace, function (err, touristplace) {
+                if (err) {
+                    req.flash('error', err.message);
+                    return res.redirect('back');
+                }
+                // REDIRECT BACK TO TOURISTPLACE PAGE
+                res.redirect('/touristplaces/' + touristplace.id);
+            });
         });
-    });
 });
 
 
@@ -89,21 +188,39 @@ router.post("/", middleware.isLoggedIn, upload.single('image'), function (req, r
 // NEW ROUTE- show form to create new touristplace
 router.get("/new", middleware.isLoggedIn, function (req, res) {
     res.render("touristplaces/new");
-})
+});
 
 //SHOW ROUTE - shows more info about one touristplace
 router.get("/:id", function (req, res) {
     //find touristplace with provided id
-    Touristplace.findById(req.params.id).populate("comments").exec(function (err, foundTouristplace) {
-        if (err || !foundTouristplace) { // foundTouristplace could be null
-            req.flash("error", "Touristplace not found")
-            res.redirect("back");
-        } else {
-            // console.log(foundTouristplace);
-            //render show template with that touristplace
-            res.render("touristplaces/show", { touristplace: foundTouristplace });
-        }
-    });
+    Touristplace.findById(req.params.id)
+        .populate("comments").
+        exec(function (err, foundTouristplace) {
+            if (err || !foundTouristplace) { // foundTouristplace could be null
+                req.flash("error", "Sorry, place not found")
+                res.redirect("back");
+            } else {
+                // console.log(foundTouristplace);
+                var ratingsArray = [];
+
+                foundTouristplace.comments.forEach(function (rating) {
+                    ratingsArray.push(rating.rating);
+                });
+                if (ratingsArray.length === 0) {
+                    foundTouristplace.rateAvg = 0;
+                } else {
+                    var ratings = ratingsArray.reduce(function (total, rating) {
+                        return total + rating;
+                    });
+                    foundTouristplace.rateAvg = ratings / foundTouristplace.comments.length;
+                    foundTouristplace.rateCount = foundTouristplace.comments.length;
+                }
+                foundTouristplace.save();
+
+                //render show template with that touristplace
+                res.render("touristplaces/show", { touristplace: foundTouristplace });
+            }
+        });
 });
 
 //EDIT TOURISTPLACE ROUTE
@@ -120,10 +237,22 @@ router.put("/:id", middleware.checkTouristplaceOwnership, upload.single('image')
             req.flash("error", err.message);
             return res.redirect("back");
         } else {
+            // geocoder look into it
+            // req.body.touristplace.lat = data[0].latitude;
+            // req.body.touristplace.lng = data[0].longitude;
+            // req.body.touristplace.location = data[0].formattedAddress;
+
             if (req.file) {
                 try {
                     await cloudinary.v2.uploader.destroy(touristplace.imageId);
-                    var result = await cloudinary.v2.uploader.upload(req.file.path);
+                    var result = await cloudinary.v2.uploader.upload(
+                        req.file.path,
+                        {
+                            width: 1500,
+                            height: 1000,
+                            crop: "scale"
+                        }
+                    );
                     touristplace.imageId = result.public_id;
                     touristplace.image = result.secure_url;
                 } catch (err) {
@@ -131,6 +260,11 @@ router.put("/:id", middleware.checkTouristplaceOwnership, upload.single('image')
                     return res.redirect("back");
                 }
             }
+            touristplace.booking = {
+                start: req.body.touristplace.start,
+                end: req.body.touristplace.end
+            };
+            touristplace.tags = req.body.touristplace.tags.split(",");
             touristplace.name = req.body.touristplace.name;
             touristplace.price = req.body.touristplace.price;
             touristplace.description = req.body.touristplace.description;

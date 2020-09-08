@@ -1,19 +1,39 @@
 <%- include("./partials/header") %>
-<div class="row">
-    <div class="col-md-12">
-        <form class="form-signin" action="/login" method="POST">
-            <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-            <label for="inputUsername" class="sr-only">Username</label>
-            <input type="text" id="inputUsername" class="form-control" name="username" placeholder="Username" required
-                autofocus>
-            <label for="inputPassword" class="sr-only">Password</label>
-            <input type="password" id="inputPassword" class="form-control" name="password" placeholder="Password"
-                required>
-            <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-        </form>
-        <div class="form-signin">
-            <a href="/touristplaces">Go Back</a>
+<div class="container mt-5">
+    <div class="row">
+        <div class="col"></div>
+        <div class="col-sm-7 col-md-6 col-lg-5">
+            <div class="card shadow border-0">
+                <div class="card-body">
+                    <h1 class="text-center">Login</h1>
+                    <form class="form-signin" action="/login" method="POST">
+                        <!-- <div class="form-group"> -->
+                        <label for="inputUsername" class="sr-only">Username</label>
+                        <input type="text" id="inputUsername" class="form-control" name="username"
+                            placeholder="Username" required autofocus>
+                        <div class="invalid-feedback">
+                            Please enter your username.
+                        </div>
+                        <!-- </div> -->
+                        <!-- <div class="form-group"> -->
+                        <label for="inputPassword" class="sr-only">Password</label>
+                        <input type="password" id="inputPassword" class="form-control" name="password"
+                            placeholder="Password" required>
+                        <div class="invalid-feedback">
+                            Please enter your password.
+                        </div>
+                        <!-- </div> -->
+                        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+                    </form>
+                    <div class="mt-2 text-center">
+                        Don't have an account?
+                        <a href="/register">Sign Up</a>
+                    </div>
+                </div>
+            </div>
         </div>
+        <div class="col"> </div>
     </div>
 </div>
+
 <%- include("./partials/footer") %>

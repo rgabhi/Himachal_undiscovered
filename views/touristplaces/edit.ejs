@@ -2,31 +2,74 @@
 
 <div class="row justify-content-center">
     <div class=" col-md-12 text-center">
-        <h1>Edit <%= touristplaces.name %></h1>
+        <h1>Edit <%= touristplace.name %></h1>
     </div>
 
     <div class="col-xs-12 col-md-6 col-lg-4">
-        <form action="/touristplaces/<%= touristplaces._id %>?_method=PUT" method="POST" enctype="multipart/form-data">
+        <form action="/touristplaces/<%= touristplace._id %>?_method=PUT" method="POST" enctype="multipart/form-data">
             <div class="form-group">
-                <input class="form-control" type="text" name="touristplaces[name]" value="<%= touristplaces.name %>">
+                <label>Name*</label>
+                <input type="text" class="form-control" name="touristplace[name]" value="<%= touristplace.name %>">
             </div>
             <div class="form-group">
-                <input class="form-control" type="number" name="touristplaces[price]" value="<%= touristplaces.price %>"
+                <label for="">Price/Night*</label>
+                <input type="number" class="form-control" name="touristplace[price]" value="<%= touristplace.price %>"
                     min="0.01" step="0.01">
             </div>
             <div class="form-group">
-                <label for="image">Image</label>
-                <input type="file" id="image" name="image" accept="image/*">
+                <div class="input-group mb-3">
+                    <div class="custom-file">
+                        <input type="file" name="image" accept="image/*" class="custom-file-input" id="image"
+                            aria-describedby="inputGroupFileAddon01">
+                        <label class="custom-file-label" for="inputGroupFile01">Image*</label>
+                    </div>
+                </div>
             </div>
             <div class="form-group">
-                <input class="form-control" type="text" name="touristplaces[description]"
-                    value="<%= touristplaces.description %>">
+                <label for="exampleFormControlTextarea1">Description*</label>
+                <textarea class="form-control" id="exampleFormControlTextarea1" name="touristplace[description]"
+                    rows="3" required><%= touristplace.description %></textarea>
+            </div>
+            <div class="form-group">
+                <label for="location">Location*</label>
+                <input type="text" class="form-control" name="touristplace[location]"
+                    value="<%= touristplace.location %>" id="location" required>
+                <div class="invalid-feedback">
+                    Please provide a valid location
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="">Phone Number*</label>
+                <input type="text" class="form-control" name="touristplace[phone]" value="<%= touristplace.phone %>"
+                    required>
+                <div class="invalid-feedback">
+                    Please provide a phone number.
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="">Booking Window (Start)*</label>
+                    <input type="text" class="form-control" name="touristplace[start]"
+                        value="<%= touristplace.booking.start %>" required>
+                    <div class="invalid-feedback">
+                        Please provide a booking window.
+                    </div>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="">Booking Window (End)*</label>
+                    <input type="text" class="form-control" name="touristplace[end]"
+                        value="<%= touristplace.booking.end %>" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="">Amenities separated by commas (boating,fishing,wifi)</label>
+                <input type="text" class="form-control" name="touristplace[tags]" value="<%= touristplace.tags %>">
             </div>
             <div class="form-group">
                 <button class="btn btn-lg btn-primary btn-block">SUBMIT</button>
             </div>
         </form>
-        <a href="/touristplaces">Go Back</a>
+        <a class="btn btn-link btn-block" href="/touristplaces/<%= touristplace._id %>">Go Back</a>
     </div>
 </div>
 

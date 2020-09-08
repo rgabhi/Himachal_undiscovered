@@ -3,10 +3,19 @@ var mongoose = require("mongoose");
 //SCHEMA SETUP
 var touristplaceSchema = new mongoose.Schema({
     name: String,
-    price: String,
+    price: Number,
     image: String,
     imageId: String,
     description: String,
+    location: String,
+    lat: Number,
+    lng: Number,
+    phone: String,
+    booking: {
+        start: String,
+        end: String
+    },
+    tags: [],
     createdAt: { type: Date, default: Date.now },
     author: {
         id: {
@@ -19,6 +28,14 @@ var touristplaceSchema = new mongoose.Schema({
         {
             type: mongoose.Schema.Types.ObjectId,
             ref: "Comment"
+        }
+    ],
+    rateAvg: Number,
+    rateCount: Number,
+    hasRated: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "User"
         }
     ]
 });

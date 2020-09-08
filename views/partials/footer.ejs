@@ -1,10 +1,13 @@
 <!-- </div> -->
 <!-- /.container -->
 <footer class="footer">
-    <div class="container">
-        <p class="text-muted"> &copy; Abhinav Gupta - 2020 | <a href="/touristplaces">Home</a> | <a
-                href="/touristplaces/new">New
-                Location</a></p>
+    <div class="container text-center">
+        <p class="text-muted">
+            &copy; Abhinav Gupta |
+            <a href="/touristplaces">Home</a> |
+            <a href="/about">About</a> |
+            <a href="#">Github</a>
+        </p>
     </div>
 </footer>
 <!--Bootstrap and it's dependencies  -->
@@ -17,6 +20,53 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
     integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
     crossorigin="anonymous"></script>
+
+<script src="https://unpkg.com/scrollreveal"></script>
+<script>
+    // ScrollReveal().reveal('.jumbotron-text', { duration: 2000 });
+    ScrollReveal().reveal('.indexCards', {
+        interval: 150, mobile: true, viewFactor: 0.3
+    });
+
+    (function () {
+        'use strict';
+        window.addEventListener('load', function () {
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = document.getElementsByClassName('needs-validation');
+            // Loop over them and prevent submission
+            var validation = Array.prototype.filter.call(forms, function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (form.checkValidity() === false) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        }, false);
+    })();
+</script>
+<script>
+    if (window.location.pathname === "/touristplaces") {
+        document.title = "Himachal Undiscovered";
+        document.getElementById("home").classList.toggle("active");
+    } else if (window.location.pathname === "/login") {
+        document.title = "Login";
+        document.getElementById("login").classList.toggle("active");
+    } else if (window.location.pathname === "/register") {
+        document.title = "Sign Up";
+        document.getElementById("register").classList.toggle("active");
+    } else if (window.location.pathname == "/touristplaces/new") {
+        document.title = "Add place"
+        document.getElementById("newTouristplace").classList.toggle("active");
+    } else if (window.location.pathname == "/about") {
+        document.title = "About"
+        document.getElementById("about").classList.toggle("active");
+    }
+</script>
+
+
+
 </body>
 
 </html>
