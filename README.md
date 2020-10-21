@@ -21,9 +21,9 @@
    
 4. Create a .env file (or just export manually in the terminal) in the root of the project and add the following:
 
-  * DATABASEURL='<url>'
-  * API_KEY=''<key>
-  * API_SECRET='<secret>'
+    * DATABASEURL='<url>'
+    * API_KEY=''<key>
+    * API_SECRET='<secret>'
 5. Run mongod in another terminal and node app.js in the terminal with the project.
 
 6. Then go to localhost:3001.
