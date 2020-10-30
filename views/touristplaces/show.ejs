@@ -22,7 +22,7 @@
                 <% } else { %>
                 <div class="card shadow-sm mt-3">
                     <div class="card-header">
-                        <i class="far fa-smile"></i> Amusements and Things to discover
+                        <i class="far fa-smile"></i> Amusements & facts
                     </div>
                     <ul class="list-group list-group-flush">
                         <% for (var i = 0; i < touristplace.tags.length; i++) { %>
@@ -58,7 +58,7 @@
                 <img class="card-img-top" src="<%= touristplace.image %>">
                 <div class="card-body">
                     <h5 class="card-title float-right">
-                        &#8377<%= touristplace.price %>/day</h5>
+                        &#8377 <%= touristplace.price %>/day</h5>
                     <h5 class="card-title text-capitalize">
                         <%= touristplace.name %>
                         <div>
@@ -87,7 +87,8 @@
                         <h5 class="card-title"><i class="fas fa-map-marker-alt"></i> Location</h5>
                         <%= touristplace.location %>
                         <hr>
-                        <h5 class="card-title text-capitalize"><i class="far fa-calendar-alt"></i> Booking Window</h5>
+                        <h5 class="card-title text-capitalize"><i class="far fa-calendar-alt"></i> Best time to visit
+                        </h5>
                         <%= touristplace.booking.start %> -
                         <%= touristplace.booking.end %>
                         <% if (touristplace.tags[0] === "") { %>
@@ -95,7 +96,7 @@
                         <% } else { %>
                         <hr>
                         <h5 class="card-title">
-                            <i class="far fa-smile"></i> Amenities
+                            <i class="far fa-smile"></i> Amusements & facts
                         </h5>
 
                         <% for (var i = 0; i < touristplace.tags.length; i++) { %>

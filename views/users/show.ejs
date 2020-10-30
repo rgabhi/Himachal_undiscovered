@@ -102,14 +102,7 @@
                     <%= touristplaces.length %> Places
                     <% } %>
                 </h1>
-                <p>
-                    <% if (user.imageId === "yzermsw6xgzpxcossto1") { %>
-                    Image Id : <%= user.imageId %> type: <%= typeof(user.imageId) %>
-                    Image : <%= user.image %> type: <%= typeof(user.imageId) %>
-                    <% } else { %>
-                    Different id: <%= user.imageId %>
-                    <% } %>
-                </p>
+
             </div>
             <div class="row">
                 <% touristplaces.forEach(function(touristplace) { %>
