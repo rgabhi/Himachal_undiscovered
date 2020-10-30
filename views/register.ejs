@@ -11,19 +11,22 @@
                     </p> -->
                     <form class="form-signin" action="/register" enctype="multipart/form-data" method="POST">
                         <label for="fullName" class="sr-only">Name*</label>
-                        <input type="text" name="fullName" class="form-control" id="fullName"
-                            placeholder="Abhinav Gupta" required autofocus>
+                        <input type="text" name="fullName" class="form-control" id="fullName" placeholder="Name"
+                            required autofocus>
                         <div class="invalid-feedback">
                             Please enter your name.
                         </div>
-                        <div class="custom-file">
-                            <input type="file" name="image" accept="image/*" class="custom-file-input" id="image"
-                                aria-describedby="inputGroupFileAddon01">
-                            <label class="custom-file-label" for="inputGroupFile01">Avatar</label>
+                        <div class="input-group">
+                            <div class="custom-file">
+                                <input type="file" name="image" accept="image/*" class="custom-file-input"
+                                    id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
+                                <label class="custom-file-label" for="inputGroupFile01">Avatar</label>
+                            </div>
                         </div>
+
                         <label for="email" class="sr-only">Email*</label>
-                        <input type="email" name="email" class="form-control" id="email" placeholder="abc@xyz.com"
-                            required autofocus>
+                        <input type="email" name="email" class="form-control" id="email" placeholder="email" required
+                            autofocus>
                         <div class="invalid-feedback">
                             Please provide an email.
                         </div>
@@ -31,13 +34,13 @@
                             placeholder="123-456-6789" autofocus>
                             <label for="inputUsername" class="sr-only">Username*</label>
                             <input type="text" name="username" class="form-control" id="inputUsername"
-                                placeholder="abhi_gupta" required autofocus>
+                                placeholder="username" required autofocus>
                             <div class="invalid-feedback">
                                 Please choose a username.
                             </div>
                             <label for="SignupInputPassword" class="sr-only">Password*</label>
                             <input type="password" name="password" class="form-control" id="SignupInputPassword"
-                                placeholder="Password" required>
+                                placeholder="password" required>
                             <div class="invalid-feedback">
                                 Please enter a password.
                             </div>

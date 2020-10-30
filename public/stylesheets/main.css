@@ -5,11 +5,12 @@
 nav{
   letter-spacing: 0.1em;
   /* font-size: larger; */
+  /* background-image: linear-gradient( 10deg,#0074e1 , #1b9ce5, #6cdaee); */
 }
 
 .jumbotron{
   background: linear-gradient(rgba(70, 70, 70, 0.35), rgba(70, 70, 70, 0.35)),
-    url("https://cdn1.goibibo.com/india-himachal-pradesh-147709567681o.jpg");
+    url(../landing_images/satyadeep-karnati-CqElbYBESLY-unsplash.jpg);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
@@ -93,10 +94,16 @@ body{
     border-bottom-right-radius: 0;
     border-bottom-left-radius: 0;
   }
+  /* .form-signin input[type="file"] {
+    margin-bottom: 10px;
+    padding: 10px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  } */
   .form-signin input[type="email"] {
     margin-bottom: -1px;
-    border-bottom-right-radius: 0;
-    border-bottom-left-radius: 0;
+    /* border-bottom-right-radius: 0; */
+    /* border-bottom-left-radius: 0; */
   }
   .form-signin input[type="password"] {
     margin-bottom: 10px;
