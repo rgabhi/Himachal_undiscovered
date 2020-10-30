@@ -8,7 +8,7 @@
                 </div>
                 <div class="card shadow-sm mt-2">
                     <div class="card-header">
-                        <i class="far fa-calendar-alt"></i> Booking Window
+                        <i class="far fa-calendar-alt"></i> Best time to visit
                     </div>
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item text-capitalize">
@@ -22,7 +22,7 @@
                 <% } else { %>
                 <div class="card shadow-sm mt-3">
                     <div class="card-header">
-                        <i class="far fa-smile"></i> Amenities
+                        <i class="far fa-smile"></i> Amusements and Things to discover
                     </div>
                     <ul class="list-group list-group-flush">
                         <% for (var i = 0; i < touristplace.tags.length; i++) { %>
@@ -58,7 +58,7 @@
                 <img class="card-img-top" src="<%= touristplace.image %>">
                 <div class="card-body">
                     <h5 class="card-title float-right">
-                        $<%= touristplace.price %>/Night</h5>
+                        &#8377<%= touristplace.price %>/day</h5>
                     <h5 class="card-title text-capitalize">
                         <%= touristplace.name %>
                         <div>

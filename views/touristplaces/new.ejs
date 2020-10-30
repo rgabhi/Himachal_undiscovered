@@ -15,8 +15,8 @@
                     <input class="form-control" type="text" name="touristplace[name]" placeholder="name" required>
                 </div>
                 <div class="form-group">
-                    <label for="">Price/Night*</label>
-                    <input type="number" class="form-control" name="touristplace[price]" placeholder="Price/Night"
+                    <label for="">Price/day*</label>
+                    <input type="number" class="form-control" name="touristplace[price]" placeholder=" Stay Price/ day"
                         min="0.01" step="0.01" required>
                     <div class="invalid-feedback">
                         Please provide a price.
@@ -44,15 +44,15 @@
                 </div>
                 <div class="form-group">
                     <label for="location">Location*</label>
-                    <input type="text" class="form-control" name="touristplace[location]"
-                        placeholder="Yosemite National Park, CA" id="location" required>
+                    <input type="text" class="form-control" name="touristplace[location]" placeholder="Shimla"
+                        id="location" required>
                     <div class="invalid-feedback">
                         Please provide a valid location
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="">Phone Number*</label>
-                    <input type="text" class="form-control" name="touristplace[phone]" placeholder="123-456-7891"
+                    <input type="text" class="form-control" name="touristplace[phone]" placeholder="+91-1234567890"
                         required>
                     <div class="invalid-feedback">
                         Please provide a phone number.
@@ -75,7 +75,7 @@
                 <div class="form-group">
                     <label for="">Amenities separated by commas</label>
                     <input type="text" class="form-control" name="touristplace[tags]"
-                        placeholder="Example: boating, fishing, wifi">
+                        placeholder="Example: boating, fishing, snow-fall...">
                 </div>
                 <div class="form-group">
                     <button class="btn btn-lg btn-primary btn-block">Submit!</button>
